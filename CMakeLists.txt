@@ -66,7 +66,7 @@ install (
 install (
   EXPORT g722_static
   FILE g722_static.cmake
-  DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722_static/cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722/cmake"
   NAMESPACE g722::
 )
 
