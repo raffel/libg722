@@ -59,14 +59,14 @@ endif()
 install (
   EXPORT g722
   FILE g722.cmake
-  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722/cmake"
   NAMESPACE g722::
 )
 
 install (
   EXPORT g722_static
   FILE g722_static.cmake
-  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722_static/cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722_static/cmake"
   NAMESPACE g722::
 )
 
@@ -74,10 +74,10 @@ include(CMakePackageConfigHelpers)
 configure_package_config_file(
   g722Config.cmake.in
   "${CMAKE_CURRENT_BINARY_DIR}/g722Config.cmake"
-  INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722/cmake"
 )
 
 install(
   FILES "${CMAKE_CURRENT_BINARY_DIR}/g722Config.cmake"
-  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+  DESTINATION "${CMAKE_INSTALL_LIBDIR}/g722/cmake"
 )
