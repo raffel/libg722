@@ -1,0 +1,4 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/g722.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/g722_static.cmake")
