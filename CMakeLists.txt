@@ -24,7 +24,7 @@ if( ENABLE_SHARED_LIB )
   add_executable(test_dynamic test.c)
   target_link_libraries(test_dynamic g722)
   add_test(NAME TestDynamic COMMAND ${PROJECT_SOURCE_DIR}/scripts/do-test.sh $<TARGET_FILE:test_dynamic>)
-  install(TARGETS g722 LIBRARY DESTINATION lib PUBLIC_HEADER DESTINATION include)
+  install(TARGETS g722 EXPORT g722 LIBRARY DESTINATION lib PUBLIC_HEADER DESTINATION include)
   target_compile_options(g722 PRIVATE -Wdouble-promotion -Wno-attributes)
   target_include_directories(g722 PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
@@ -35,7 +35,7 @@ if( ENABLE_STATIC_LIB )
   add_executable(test_static test.c)
   target_link_libraries(test_static g722_static)
   add_test(NAME TestStatic COMMAND ${PROJECT_SOURCE_DIR}/scripts/do-test.sh $<TARGET_FILE:test_static>)
-  install(TARGETS g722_static ARCHIVE DESTINATION lib PUBLIC_HEADER DESTINATION include)
+  install(TARGETS g722_static EXPORT g722_static ARCHIVE DESTINATION lib PUBLIC_HEADER DESTINATION include)
   target_compile_options(g722_static PRIVATE -Wdouble-promotion -Wno-attributes)
   target_include_directories(g722_static PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 endif()
@@ -55,3 +55,29 @@ if( lto_supported )
 else()
     message(STATUS "LTO not supported: <${lto_error}>")
 endif()
+
+install (
+  EXPORT g722
+  FILE g722.cmake
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+  NAMESPACE g722::
+)
+
+install (
+  EXPORT g722_static
+  FILE g722_static.cmake
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722_static/cmake"
+  NAMESPACE g722::
+)
+
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+  g722Config.cmake.in
+  "${CMAKE_CURRENT_BINARY_DIR}/g722Config.cmake"
+  INSTALL_DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+)
+
+install(
+  FILES "${CMAKE_CURRENT_BINARY_DIR}/g722Config.cmake"
+  DESTINATION "${CMAKE_INSTALL_DATADIR}/g722/cmake"
+)
